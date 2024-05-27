@@ -1,0 +1,64 @@
+Design Patterns in the Provided Codebase: A Report
+
+The codebase provided demonstrates the usage of several design patterns to achieve its objectives. These patterns address various concerns, including separation of concerns, code reusability, dependency management, and authorization enforcement.
+
+1. Repository Pattern
+
+Implementation: The ApplicationDbContext class and its interaction with the _context object in the UsersController indicates the partial implementation of the Repository Pattern. This pattern abstracts data access logic away from the controller, providing a more maintainable and testable approach to interacting with the database.
+
+Benefits:
+Improved Testability: Mocking the repository during testing becomes easier, as the controller's dependency on the database is abstract.
+Centralized Data Access: All data access operations are consolidated into a single repository, making it easier to manage and maintain.
+Separation of Concerns: The controller is no longer burdened with low-level data access details, promoting a cleaner and more focused design.
+
+
+2. Dependency Injection (DI)
+
+Implementation: The constructor injection of IUserService and ApplicationDbContext into the UsersController exemplifies the Dependency Injection pattern. This pattern allows dependencies to be provided to a class from an external source rather than being created internally.
+
+Benefits:
+Loose Coupling: Reduces the direct dependency between classes, making them more flexible and easier to modify independently.
+Improved Testability: Facilitates the injection of mock implementations for testing purposes.
+Enhanced Maintainability: Promotes a cleaner and more modular codebase.
+
+
+3. Service Layer Pattern
+
+Implementation: The IUserService interface and its concrete implementation, UserService, illustrate the Service Layer pattern. This pattern encapsulates business logic and provides a clear separation between the presentation layer (controller) and the data access layer.
+
+Benefits:
+Clean Architecture: Maintains a clear division of responsibilities between different layers of the application.
+Centralized Logic: Consolidates business rules and workflows within the service layer, making it easier to modify and maintain.
+Reusability: Service methods can be reused across multiple controllers or components.
+
+
+4. Role-Based Access Control (RBAC)
+
+Implementation: The use of the [Authorize(Roles = ...)] attribute on controller actions, along with the User.IsInRole checks within the actions, demonstrates Role-Based Access Control. This pattern allows you to restrict access to specific parts of the application based on the user's assigned role(s).
+
+Benefits:
+Enhanced Security: Prevents unauthorized users from accessing sensitive data or performing restricted operations.
+Fine-Grained Access Control: Allows you to define specific permissions for different user roles, tailoring access to the application's functionality.
+
+
+5. Strategy Pattern:
+
+Presence: There's a subtle hint of the Strategy pattern in the way different roles determine data access. The GetSalesDataAsync, GetDevsDataAsync, and GetAdminDataAsync methods in the UserService represent different strategies for retrieving data based on the user's role.
+
+
+6. Evaluation whilst considering scalability and security:
+
+Scalability
+
+Positive Impact:
+
+Repository Pattern and Dependency Injection: Decoupling data access logic from the controller and using DI enhances testability and maintainability, which are indirect contributors to scalability. This means that if you need to scale your database or switch to a different data storage technology, the changes will be more localized and less disruptive.
+
+Service Layer: Centralizing business logic in a service layer allows for easier scaling of individual components. If the user management logic becomes complex, you can scale the UserService independently of the controller.
+
+Async/Await: The use of asynchronous operations (async/await) can improve the scalability of your API by allowing it to handle more concurrent requests without blocking threads.
+
+Security
+
+Role-Based Access Control (RBAC): RBAC provides a granular way to control access to different parts of the application based on user roles. This helps prevent unauthorized users from viewing or modifying data they shouldn't have access to.
+JWT Authentication: JWTs are a widely used and secure way to authenticate users in APIs. They are stateless, meaning the server doesn't need to store session information, which can simplify scaling.
