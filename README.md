@@ -1,8 +1,15 @@
 Role-Based Data Access Testing Manual
+
+
 Introduction
+
+
 This manual guides you through testing a role-based authentication and authorization system implemented in ASP.NET Core 7. This system controls user access to specific data within the application's database, depending on their assigned role.
 
 Prerequisites
+
+
+
 Seeded Roles: The database should be pre-populated with the required roles: ADMIN, SALES, and DEVS. (This has already been done in the development environment.)
 Postman: Ensure Postman is installed and configured for API testing.
 Test Procedures
